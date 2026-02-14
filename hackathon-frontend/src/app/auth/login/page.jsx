@@ -47,9 +47,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="justify-center  min-h-screen flex flex-col items-center bg-[#F6F7FB] px-4">
+    <div className="justify-center min-h-screen flex flex-col items-center bg-[#F6F7FB] px-4 py-6">
       {/* Card */}
-      <div className=" flex flex-col items-center p-12 gap-6 w-full max-w-[392px]  bg-surface rounded-[10px] box-border">
+      <div className="flex flex-col items-center p-6 sm:p-12 gap-6 w-full max-w-[392px] bg-surface rounded-[10px] box-border">
         {/* Login title */}
         <span className="font-inter font-bold text-xl leading-6 tracking-[0.15px] text-[#1A2D21]">
           Login

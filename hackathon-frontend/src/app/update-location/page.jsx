@@ -310,14 +310,14 @@ export default function UpdateLocationPage() {
                 key={mode.key}
                 type="button"
                 onClick={() => setSelectedMode(mode.key)}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl cursor-pointer font-rubik text-sm font-medium transition-colors ${
+                className={`flex-1 flex items-center justify-center gap-1 sm:gap-1.5 py-2.5 px-2 sm:px-3 rounded-xl cursor-pointer font-rubik text-sm font-medium transition-colors ${
                   selectedMode === mode.key
                     ? 'bg-primary text-white border-2 border-primary'
                     : 'bg-white text-gray-700 border-[1.5px] border-gray-200'
                 }`}
               >
                 <span>{mode.icon}</span>
-                <span className="text-xs">{mode.label}</span>
+                <span className="text-[10px] sm:text-xs">{mode.label}</span>
               </button>
             ))}
           </div>

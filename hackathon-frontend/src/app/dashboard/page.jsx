@@ -44,14 +44,14 @@ export default function DashboardPage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-3 mb-6">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6">
             {stats.map((s) => {
               const Icon = s.icon;
               return (
-                <div key={s.label} className={`rounded-xl p-4 text-center ${s.bg}`}>
-                  <Icon className={`w-6 h-6 mx-auto mb-1 ${s.color}`} />
-                  <p className={`font-rubik font-bold text-[22px] m-0 ${s.color}`}>{s.value}</p>
-                  <p className="font-rubik text-[11px] text-gray-500 mt-0.5 mb-0">{s.label}</p>
+                <div key={s.label} className={`rounded-xl p-3 sm:p-4 text-center ${s.bg}`}>
+                  <Icon className={`w-5 h-5 sm:w-6 sm:h-6 mx-auto mb-1 ${s.color}`} />
+                  <p className={`font-rubik font-bold text-lg sm:text-[22px] m-0 ${s.color}`}>{s.value}</p>
+                  <p className="font-rubik text-[10px] sm:text-[11px] text-gray-500 mt-0.5 mb-0">{s.label}</p>
                 </div>
               );
             })}

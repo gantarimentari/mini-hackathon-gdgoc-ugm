@@ -5,28 +5,20 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { HiMenu, HiX } from 'react-icons/hi';
-import { AiOutlineHome, AiOutlineCompass, AiOutlineNotification, AiOutlineDashboard, AiOutlineLogout, AiOutlineLogin } from 'react-icons/ai';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const menuRef = useRef(null);
 
   // sembunyiin navbar kalo di halaman login/register
   if (pathname.startsWith('/auth/')) return null;
 
   const navLinks = [
-    { href: '/', label: 'Home', icon: AiOutlineHome },
-    { href: '/recommend-route', label: 'Find Route', icon: AiOutlineCompass },
-    { href: '/update-location', label: 'Report', icon: AiOutlineNotification },
-    { href: '/dashboard', label: 'Dashboard', icon: AiOutlineDashboard, auth: true },
+    { href: '/update-location', label: 'Laporkan' },
+    { href: '/recommend-route', label: 'Cari Rute' },
   ];
-
-  const isActive = (href) => {
-    if (href === '/') return pathname === '/';
-    return pathname.startsWith(href);
-  };
 
   const isMapPage = pathname === '/recommend-route';
 
@@ -68,60 +60,53 @@ export default function Navbar() {
             onClick={() => setMenuOpen(false)}
             className="absolute inset-0 bg-black/25"
           />
-          {/* Panel */}
+          {/* Panel - Figma specs */}
           <div
             ref={menuRef}
-            className="relative w-full bg-surface shadow-lg p-2 px-4 pb-4 flex flex-col gap-0.5"
+            className="relative w-full bg-[#F6F7FB] shadow-[0_4px_4px_rgba(86,151,108,0.33)] rounded-b-lg py-2.5 px-[35px] flex flex-col gap-2.5"
           >
-            {navLinks
-              .filter((link) => !link.auth || isAuthenticated)
-              .map((link) => {
-                const Icon = link.icon;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className={`no-underline flex items-center gap-3 py-3 px-3.5 rounded-[10px] font-inter text-[15px] ${
-                      isActive(link.href)
-                        ? 'font-semibold text-primary bg-primary-light'
-                        : 'font-normal text-gray-700'
-                    }`}
-                  >
-                    <Icon className="w-5 h-5" />
-                    {link.label}
-                  </Link>
-                );
-              })}
+            {/* TemanJalan brand - centered */}
+            <div className="flex justify-center items-center py-1">
+              <Link 
+                href="/" 
+                onClick={() => setMenuOpen(false)}
+                className="no-underline font-rubik italic font-semibold text-base leading-[22px] text-primary"
+              >
+                TemanJalan
+              </Link>
+            </div>
 
-            {/* Divider */}
-            <div className="h-px bg-gray-200 mx-3.5 my-1.5" />
+            {/* Menu links - centered text */}
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="no-underline flex justify-center items-center py-1 font-rubik font-medium text-base leading-[22px] text-primary"
+              >
+                {link.label}
+              </Link>
+            ))}
 
+            {/* Keluar / Login button */}
             {isAuthenticated ? (
-              <>
-                {/* User info */}
-                <div className="flex items-center gap-2.5 px-3.5 py-2 font-inter text-[13px] text-gray-500">
-                  <div className="w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">
-                    {(user?.name || user?.email || 'U')[0].toUpperCase()}
-                  </div>
-                  <span>{user?.name || user?.email}</span>
-                </div>
-                <button
-                  onClick={() => { logout(); setMenuOpen(false); }}
-                  className="flex items-center gap-3 py-3 px-3.5 rounded-[10px] font-inter text-[15px] text-danger bg-transparent border-none cursor-pointer text-left w-full"
-                >
-                  <AiOutlineLogout className="w-5 h-5" />
-                  Logout
-                </button>
-              </>
+              <button
+                onClick={() => { logout(); setMenuOpen(false); }}
+                className="flex justify-center items-center py-1 w-full bg-[#C13127] rounded-lg border-none cursor-pointer"
+              >
+                <span className="font-rubik font-medium text-base leading-[22px] text-white py-1">
+                  Keluar
+                </span>
+              </button>
             ) : (
               <Link
                 href="/auth/login"
                 onClick={() => setMenuOpen(false)}
-                className="no-underline flex items-center justify-center gap-2 py-2.5 rounded-lg bg-primary text-white font-inter text-[15px] font-medium mt-1 shadow-sm"
+                className="no-underline flex justify-center items-center py-1 w-full bg-primary rounded-lg"
               >
-                <AiOutlineLogin className="w-5 h-5" />
-                Login
+                <span className="font-rubik font-medium text-base leading-[22px] text-white py-1">
+                  Login
+                </span>
               </Link>
             )}
           </div>
